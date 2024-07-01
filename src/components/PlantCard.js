@@ -1,17 +1,50 @@
-import React from "react";
+import React, {useState} from "react";
 
-function PlantCard() {
+function PlantCard({name, image, price, handleDelete, id, handleEdit}) {
+
+  const [stock, setStock] = useState(true)
+  const [edit, setEdit] = useState(false)
+  const [newPrice, setNewPrice] = useState(price)
+
+  function handleClick(){
+    stock === true ? setStock(false) : setStock(true)
+  }
+
+  function editForm(e){
+    e.preventDefault()
+    const editedItem = {
+        name: name,
+        image: image,
+        price: newPrice
+    }
+    setEdit(!edit)
+    handleEdit(id,editedItem)
+  }
+
   return (
+    <>
+    {edit ?
     <li className="card" data-testid="plant-item">
-      <img src={"https://via.placeholder.com/400"} alt={"plant name"} />
-      <h4>{"plant name"}</h4>
-      <p>Price: {"plant price"}</p>
-      {true ? (
-        <button className="primary">In Stock</button>
+      <form onSubmit={editForm}>
+        <label>Price</label>
+        <input onChange={(e)=>setNewPrice(e.target.value)} value={newPrice}></input>
+        <button type="submit">stop Edit</button>
+      </form>
+    </li> 
+    :
+    <li className="card" data-testid="plant-item">
+      <img src={image} alt={name} />
+      <h4>{name}</h4>
+      <p>Price: {price}</p>
+      {stock ? (
+        <button className="primary" onClick={handleClick}>In Stock</button>
       ) : (
-        <button>Out of Stock</button>
+        <button onClick={handleClick}>Out of Stock</button>
       )}
-    </li>
+      <button className="primary2" onClick={()=>handleDelete(id)}>Remove Plant</button>
+      <button onClick={()=>setEdit(!edit)}>Change Price</button>
+    </li>}
+    </>
   );
 }
 
