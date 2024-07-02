@@ -2,15 +2,15 @@ import React, {useState} from "react";
 
 function PlantCard({name, image, price, handleDelete, id, handleEdit}) {
 
-  const [stock, setStock] = useState(true)
-  const [edit, setEdit] = useState(false)
-  const [newPrice, setNewPrice] = useState(price)
+  const [stock, setStock] = useState(true)//sets stock to instock or out of stock 
+  const [edit, setEdit] = useState(false) //sets the edit state to allow editing
+  const [newPrice, setNewPrice] = useState(price)//sets the new price of plant
 
-  function handleClick(){
+  function handleClick(){ // function to switch stock status upon click
     stock === true ? setStock(false) : setStock(true)
   }
 
-  function editForm(e){
+  function editForm(e){ // function to edit the price of a plant
     e.preventDefault()
     const editedItem = {
         name: name,

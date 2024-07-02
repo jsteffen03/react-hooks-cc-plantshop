@@ -5,14 +5,14 @@ import Search from "./Search";
 
 function PlantPage({plants, setPlants}) {
 
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("") //state to set the search to what ever is typed in the search box. 
 
-  function handleChange(e){
+  function handleChange(e){ // function to handle any change in the search box.
     setSearch(e.target.value)
   }
 
-  function addPlant(newPlant){
-    fetch("http://localhost:6001/plants",{
+  function addPlant(newPlant){ //Post function to add a new set of plant data to the database
+    fetch("http://localhost:6001/plants",{ 
       method:'POST',
       headers:{"Content-Type": "Application/JSON"},
       body: JSON.stringify(newPlant)
@@ -21,7 +21,7 @@ function PlantPage({plants, setPlants}) {
     .then(data=>  setPlants([...plants,data]))
   }
 
-  function handleDelete(id){
+  function handleDelete(id){ // delete function to delete select group of data based on the id from database
     fetch(`http://localhost:6001/plants/${id}`,{
     method:'DELETE'
     })
@@ -37,7 +37,7 @@ function PlantPage({plants, setPlants}) {
     setPlants(removed)
   }
 
-  function handleEdit(id,updatedPlant){
+  function handleEdit(id,updatedPlant){ //patch function to change the price of the certain plants based on id. 
     fetch(`http://localhost:6001/plants/${id}`,{
     method:'PATCH',
     headers:{"Content-Type": "application/json"},

@@ -2,10 +2,12 @@ import React, {useState} from "react";
 
 function NewPlantForm({addPlant}) {
 
+  //states to set data to varibles to create a new object.
   const [name, setName] = useState("")
   const [image, setImage] = useState("")
-  const [price, setPrice] = useState("")
+  const [price, setPrice] = useState("") 
 
+  //adds a new plant to database on submit
   function submit(e){
     e.preventDefault()
     const new_Plant = {
@@ -14,6 +16,7 @@ function NewPlantForm({addPlant}) {
       price: price
     }
     addPlant(new_Plant)
+    //sets them back to blanks for the next time
     setName("")
     setImage("")
     setPrice("")
